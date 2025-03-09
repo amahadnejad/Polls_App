@@ -134,3 +134,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication Setting
 AUTH_USER_MODEL = 'accounts.CustomUser'
+ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
+
+# All-Auth Setting
+SITE_ID = 1
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_USERNAME_REQUIRED = True
