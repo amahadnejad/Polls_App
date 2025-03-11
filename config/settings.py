@@ -138,5 +138,5 @@ ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
 
 # All-Auth Setting
 SITE_ID = 1
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_LOGIN_METHOD = {'username'}
 ACCOUNT_USERNAME_REQUIRED = True
