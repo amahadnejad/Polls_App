@@ -1,8 +1,35 @@
 {% extends '_base.html' %}
 
-{% block page_title %}Poll {{ poll.question }}{% endblock page_title %}
+{% block page_title %}Poll - {{ poll.question }}{% endblock page_title %}
 
 {% block content %}
-    <h1>{{ poll.question }}</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-body">
+                    <h3 class="card-title">{{ poll.question }}</h3>
+                    <p class="card-text text-muted"><strong>Asked by:</strong> {{ poll.user }} | <small>Created
+                                on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small></p>
+                    <hr>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for choice in poll.choices.all %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="choice" id="choice{{ choice.id }}" value="{{ choice.id }}">
+                                <label class="form-check-label" for="choice{{ choice.id }}">
+                                    {{ choice.text }} <span class="text-muted">({{ choice.votes }} votes)</span>
+                                </label>
+                            </div>
+                        {% endfor %}
 
+                        <div class="mt-4 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success">Vote</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
