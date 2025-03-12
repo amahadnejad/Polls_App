@@ -12,6 +12,9 @@ class Poll(models.Model):
     up_vote = models.PositiveIntegerField(default=0)
     down_vote = models.PositiveIntegerField(default=0)
 
+    upvoted_by = models.ManyToManyField(get_user_model(), related_name='upvoted_polls', blank=True)
+    downvoted_by = models.ManyToManyField(get_user_model(), related_name='downvoted_polls', blank=True)
+
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)
 

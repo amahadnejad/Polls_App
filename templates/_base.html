@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #1e1e1e; border-bottom: 3px solid #ff79c6;">
         <div class="container">
-            <a class="navbar-brand" href="#" style="color: #61dafb; font-weight: bold;">&lt;Polls App /&gt;</a>
+            <a class="navbar-brand" href="{% url 'polls_list' %}" style="color: #61dafb; font-weight: bold;">&lt;Polls App /&gt;</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
                 <ul class="navbar-nav ms-auto d-flex align-items-center">
                     {% if user.is_authenticated %}
                         <li class="nav-item d-flex align-items-center">
-                            <span class="me-2" style="color: #f8f8f2;">{{ user.username }}</span>
+                            <span class="me-2" style="color: #f8f8f2;">{{ user.username|capfirst }}</span>
                             <a class="nav-link" href="{% url 'account_logout' %}"
                                style="color: #50fa7b; font-weight: bold; transition: 0.3s;">Logout</a>
                         </li>
