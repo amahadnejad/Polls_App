@@ -7,11 +7,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm border-0 rounded">
+                <!-- Placeholder Image -->
+                <img src="https://placehold.co/800x300" class="card-img-top" alt="Poll Image">
                 <div class="card-body">
                     <h3 class="card-title">{{ poll.question }}</h3>
-                    <p class="card-text text-muted"><strong>Asked by:</strong> {{ poll.user }} | <small>Created
-                                on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small></p>
+                    <p class="card-text text-muted">
+                        <strong>Asked by:</strong> {{ poll.user }} |
+                        <small><strong>Created on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small>
+                    </p>
                     <hr>
+                    <p>{{ poll.description }}</p>
+
                     <form method="post">
                         {% csrf_token %}
                         {% for choice in poll.choices.all %}

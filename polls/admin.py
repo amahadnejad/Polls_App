@@ -1,17 +1,18 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import Poll, Choice
+from .models import Poll
 
 User = get_user_model()
+
+# Customize Django Admin Titles
+admin.site.site_header = "Pollster Admin"
+admin.site.site_title = "Pollster Admin Area"
+admin.site.index_title = "Welcome to the Pollster Admin Area"
 
 
 @admin.register(Poll)
 class PollAdmin(admin.ModelAdmin):
-    list_display = ('question', 'user', 'datetime_created')
+    list_display = ('question', 'datetime_created', 'user')
     search_fields = ('question',)
+    readonly_fields = ('datetime_created',)
 
-
-@admin.register(Choice)
-class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ('poll', 'user', 'choice_text', 'votes')
-    search_fields = ('choice_text',)
