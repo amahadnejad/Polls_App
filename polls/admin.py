@@ -12,7 +12,7 @@ admin.site.index_title = "Welcome to the Pollster Admin Area"
 
 @admin.register(Poll)
 class PollAdmin(admin.ModelAdmin):
-    list_display = ('question', 'datetime_created', 'user')
+    list_display = ('question', 'datetime_created', 'user', 'up_vote', 'down_vote')
     search_fields = ('question',)
     readonly_fields = ('datetime_created',)
 

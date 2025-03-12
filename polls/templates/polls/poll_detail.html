@@ -3,39 +3,48 @@
 {% block page_title %}Poll - {{ poll.question }}{% endblock page_title %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm border-0 rounded">
-                <!-- Placeholder Image -->
-                <img src="https://placehold.co/800x300" class="card-img-top" alt="Poll Image">
-                <div class="card-body">
-                    <h3 class="card-title">{{ poll.question }}</h3>
-                    <p class="card-text text-muted">
-                        <strong>Asked by:</strong> {{ poll.user }} |
-                        <small><strong>Created on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small>
-                    </p>
-                    <hr>
-                    <p>{{ poll.description }}</p>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm border-0 rounded">
+                    <!-- Placeholder Image -->
+                    <img src="https://placehold.co/800x300" class="card-img-top"
+                         alt="Poll image for {{ poll.question }}">
 
-                    <form method="post">
-                        {% csrf_token %}
-                        {% for choice in poll.choices.all %}
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="choice" id="choice{{ choice.id }}" value="{{ choice.id }}">
-                                <label class="form-check-label" for="choice{{ choice.id }}">
-                                    {{ choice.text }} <span class="text-muted">({{ choice.votes }} votes)</span>
-                                </label>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ poll.question }}</h3>
+                        <p class="card-text text-muted">
+                            <strong>Asked by:</strong> {{ poll.user }} |
+                            <small><strong>Created on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small>
+                        </p>
+                        <hr>
+                        <p>{{ poll.description }}</p>
+
+                        <!-- Voting Section -->
+                        <div class="mt-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="badge bg-success">👍 Up Votes: {{ poll.up_vote }}</span>
+                                <span class="badge bg-danger mx-3">👎 Down Votes: {{ poll.down_vote }}</span>
                             </div>
-                        {% endfor %}
 
-                        <div class="mt-4 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success">Vote</button>
+                            <!-- Button Group to Keep Buttons Together -->
+                            <div class="btn-group">
+                                <!-- Upvote Form -->
+                                <form action="{% url 'poll_vote' poll.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success">Upvote</button>
+                                </form>
+
+                                <!-- Downvote Form -->
+                                <form action="{% url 'poll_down_vote' poll.id %}" method="post" class="ms-2">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Downvote</button>
+                                </form>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock content %}

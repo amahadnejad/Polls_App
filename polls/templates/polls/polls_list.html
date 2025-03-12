@@ -15,7 +15,7 @@
                             <p class="card-text text-muted"><strong>Asked by:</strong> {{ poll.user }} | <small>Created
                                 on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small></p>
                             <div class="mt-auto d-flex justify-content-end">
-                                <a href="" class="btn btn-success">Go</a>
+                                <a href="{{ poll.get_absolute_url }}" class="btn btn-success">Go</a>
                             </div>
                         </div>
                     </div>

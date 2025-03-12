@@ -18,3 +18,19 @@ def poll_detail_view(request, pk):
     return render(request, 'polls/poll_detail.html', context={
         'poll': poll,
     })
+
+
+@login_required
+def up_vote(request, pk):
+    poll = Poll.objects.get(pk=pk)
+    poll.up_vote += 1
+    poll.save()
+    return redirect('poll_detail', pk=pk)
+
+
+@login_required
+def down_vote(request, pk):
+    poll = Poll.objects.get(pk=pk)
+    poll.down_vote += 1
+    poll.save()
+    return redirect('poll_detail', pk=pk)
