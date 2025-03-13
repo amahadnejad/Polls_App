@@ -35,6 +35,21 @@ def up_vote(request, pk):
 
 
 @login_required
+def poll_create_view(request):
+    if request.method == 'POST':
+        form = PollForm(request.POST)
+        if form.is_valid():
+            poll = form.save(commit=False)
+            poll.user = request.user
+            poll.save()
+            return redirect(poll.get_absolute_url())
+    else:
+        form = PollForm()
+
+    return render(request, 'poll_create.html', {'form': form})
+
+
+@login_required
 def down_vote(request, pk):
     poll = Poll.objects.get(pk=pk)
 
