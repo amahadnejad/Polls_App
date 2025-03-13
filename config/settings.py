@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # Third-Party Apps
     'allauth',
     'allauth.account',
+    'crispy_forms',
+    'crispy_bootstrap4',
 
     # Local Apps
     'accounts.apps.AccountsConfig',
@@ -140,3 +142,6 @@ ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
 SITE_ID = 1
 ACCOUNT_LOGIN_METHOD = {'username'}
 ACCOUNT_USERNAME_REQUIRED = True
+
+# Crispy Forms Setting
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
