@@ -46,7 +46,7 @@ def poll_create_view(request):
     else:
         form = PollForm()
 
-    return render(request, 'poll_create.html', {'form': form})
+    return render(request, 'polls/poll_create.html', {'form': form})
 
 
 @login_required
