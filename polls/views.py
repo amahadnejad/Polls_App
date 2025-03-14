@@ -80,3 +80,12 @@ def poll_update_view(request, pk):
         'poll': poll,
     })
 
+
+def poll_delete_view(request, pk):
+    poll = get_object_or_404(Poll, pk=pk)
+
+    if request.method == "POST":
+        poll.delete()
+        return redirect("polls_list")
+
+    return render(request, "polls/poll_delete.html", {"poll": poll})
