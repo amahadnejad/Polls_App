@@ -1,1 +1,35 @@
-Aboutus
+{% extends '_base.html' %}
+
+{% block page_title %}About Us{% endblock page_title %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="mb-4">About Us</h1>
+            <p class="lead text-muted">
+                Welcome to <strong>Polls App</strong>! We are passionate about creating an interactive and engaging platform
+                where users can create, vote, and explore different polls with ease.
+            </p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4 text-center">
+            <i class="bi bi-lightbulb-fill display-4 text-primary"></i>
+            <h3 class="mt-3">Our Vision</h3>
+            <p>To make decision-making fun, easy, and accessible for everyone through interactive polls.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="bi bi-people-fill display-4 text-success"></i>
+            <h3 class="mt-3">Our Community</h3>
+            <p>We believe in the power of community-driven discussions and voting to make informed choices.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="bi bi-shield-lock-fill display-4 text-danger"></i>
+            <h3 class="mt-3">Security & Privacy</h3>
+            <p>Your votes and data are safe with us. We prioritize user privacy and security in all our services.</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}
