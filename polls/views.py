@@ -8,7 +8,7 @@ from .forms import PollForm
 
 
 def poll_list_view(request):
-    polls = Poll.objects.all()
+    polls = Poll.objects.all().order_by('-datetime_created')
     return render(request, 'polls/polls_list.html', context={'polls': polls})
 
 
