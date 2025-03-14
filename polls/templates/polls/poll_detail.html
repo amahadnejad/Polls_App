@@ -7,9 +7,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm border-0 rounded">
-                    <!-- Placeholder Image -->
-                    <img src="https://placehold.co/800x300" class="card-img-top"
-                         alt="Poll image for {{ poll.question }}">
+                    <!-- Responsive Image -->
+                    <img src="https://placehold.co/800x300" class="card-img-top img-fluid" alt="Poll image for {{ poll.question }}">
 
                     <div class="card-body">
                         <h3 class="card-title">{{ poll.question }}</h3>
@@ -17,17 +16,27 @@
                             <strong>Asked by:</strong> {{ poll.user }} |
                             <small><strong>Created on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small>
                         </p>
-                        <hr>
-                        <p>{{ poll.description }}</p>
 
-                        <!-- Voting Section -->
-                        <div class="mt-4 d-flex align-items-center justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Show Edit & Delete Buttons Only for the Poll Creator -->
+                            {% if request.user == poll.user %}
+                                <div>
+                                    <a href="{% url 'poll_update' poll.pk %}" class="btn btn-sm btn-warning me-2">Edit</a>
+                                    <a href="{% url 'poll_delete' poll.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            {% endif %}
+
+                            <!-- Upvote and Downvote Section -->
                             <div>
                                 <span class="badge bg-success">👍 Up Votes: {{ poll.up_vote }}</span>
                                 <span class="badge bg-danger mx-3">👎 Down Votes: {{ poll.down_vote }}</span>
                             </div>
+                        </div>
+                        <hr>
+                        <p>{{ poll.description }}</p>
 
-                            <!-- Button Group to Keep Buttons Together -->
+                        <!-- Voting Section (Button Group) -->
+                        <div class="mt-4 d-flex justify-content-between flex-column flex-sm-row">
                             <div class="btn-group">
                                 <!-- Upvote Form -->
                                 <form action="{% url 'poll_vote' poll.id %}" method="post">
