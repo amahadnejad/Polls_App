@@ -138,11 +138,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Authentication Setting
 AUTH_USER_MODEL = 'accounts.CustomUser'
 ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
+LOGIN_REDIRECT_URL = 'polls_list'
+LOGOUT_REDIRECT_URL = 'polls_list'
 
 # All-Auth Setting
 SITE_ID = 1
 ACCOUNT_LOGIN_METHOD = {'username'}
 ACCOUNT_USERNAME_REQUIRED = True
+
 
 # Crispy Forms Setting
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
