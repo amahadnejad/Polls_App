@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .models import Poll
@@ -15,11 +15,9 @@ def poll_detail_view(request, pk):
     return render(request, 'polls/poll_detail.html', context={'poll': poll})
 
 
-
-
 @login_required
 def up_vote(request, pk):
-    poll = Poll.objects.get(pk=pk)
+    poll = get_object_or_404(Poll, pk=pk)
 
     if request.user in poll.downvoted_by.all():
         poll.down_vote -= 1
@@ -51,7 +49,7 @@ def poll_create_view(request):
 
 @login_required
 def down_vote(request, pk):
-    poll = Poll.objects.get(pk=pk)
+    poll = get_object_or_404(Poll, pk=pk)
 
     if request.user in poll.upvoted_by.all():
         poll.up_vote -= 1
@@ -64,3 +62,21 @@ def down_vote(request, pk):
 
     poll.save()
     return redirect('poll_detail', pk=pk)
+
+
+def poll_update_view(request, pk):
+    poll = get_object_or_404(Poll, pk=pk)
+
+    if request.method == "POST":
+        form = PollForm(request.POST, instance=poll)
+        if form.is_valid():
+            form.save()
+            return redirect("poll_detail", pk=poll.pk)
+    else:
+        form = PollForm(instance=poll)
+
+    return render(request, "polls/poll_update.html", {
+        "form": form,
+        'poll': poll,
+    })
+

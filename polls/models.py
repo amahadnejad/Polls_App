@@ -19,7 +19,7 @@ class Poll(models.Model):
     datetime_modified = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return reverse('poll_detail', args=[self.id])
+        return reverse('poll_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.question
