@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Local Apps
     'accounts.apps.AccountsConfig',
     'polls.apps.PollsConfig',
+    'pages.apps.PagesConfig',
 ]
 
 MIDDLEWARE = [
