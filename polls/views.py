@@ -20,7 +20,7 @@ def poll_detail_view(request, pk):
 @login_required
 def poll_create_view(request):
     if request.method == 'POST':
-        form = PollForm(request.POST)
+        form = PollForm(request.POST, request.FILES)
         if form.is_valid():
             poll = form.save(commit=False)
             poll.user = request.user
@@ -43,7 +43,7 @@ def poll_update_view(request, pk):
         return redirect("polls_list")  # Redirect to poll list
 
     if request.method == "POST":
-        form = PollForm(request.POST, instance=poll)
+        form = PollForm(request.POST, request.FILES, instance=poll)
         if form.is_valid():
             form.save()
             messages.success(request, "Poll updated successfully!")
