@@ -8,7 +8,7 @@ class Poll(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     description = models.TextField(blank=True)
-
+    cover = models.ImageField(upload_to='covers/', blank=True)
     up_vote = models.PositiveIntegerField(default=0)
     down_vote = models.PositiveIntegerField(default=0)
 
