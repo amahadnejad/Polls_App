@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import Poll
+from .models import Poll, Comment
 
 User = get_user_model()
 
@@ -16,3 +16,7 @@ class PollAdmin(admin.ModelAdmin):
     search_fields = ('question',)
     readonly_fields = ('datetime_created',)
 
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'poll', 'body', 'datetime_created', 'is_active')
