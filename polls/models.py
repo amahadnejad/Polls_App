@@ -25,3 +25,14 @@ class Poll(models.Model):
 
     def __str__(self):
         return self.question
+
+
+class Comment(models.Model):
+    poll = models.ForeignKey('Poll', related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    content = models.TextField()
+    datetime_created = models.DateTimeField(auto_now_add=True)
+    datetime_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Comment by {self.user} on {self.poll.question}'
