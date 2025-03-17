@@ -3,17 +3,25 @@
 {% block page_title %}Poll - {{ poll.question }}{% endblock page_title %}
 
 {% block content %}
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 300px; /* Fixed height for consistency */
+            object-fit: contain; /* Ensures the full image is visible without cropping */
+            background-color: #f8f9fa; /* Optional: Adds a background color for images with transparency */
+        }
+    </style>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm border-0 rounded">
                     <!-- Responsive Image -->
                     {% if poll.cover %}
-                        <img src="{{ poll.cover.url }}" class="card-img-top img-fluid" alt="Poll Image"
-                             style="height: 300px; object-fit: cover; width: 100%;">
+                        <img src="{{ poll.cover.url }}" class="card-img-top img-fluid" alt="Poll Image">
                     {% else %}
                         <img src="https://placehold.co/800x300" class="card-img-top img-fluid"
-                             alt="Poll image for {{ poll.question }}" style="height: 300px; object-fit: cover; width: 100%;">
+                             alt="Poll image for {{ poll.question }}">
                     {% endif %}
 
                     <div class="card-body">
@@ -27,7 +35,8 @@
                             <!-- Show Edit & Delete Buttons Only for the Poll Creator -->
                             {% if request.user == poll.user %}
                                 <div>
-                                    <a href="{% url 'poll_update' poll.pk %}" class="btn btn-sm btn-warning me-2">Edit</a>
+                                    <a href="{% url 'poll_update' poll.pk %}"
+                                       class="btn btn-sm btn-warning me-2">Edit</a>
                                     <a href="{% url 'poll_delete' poll.pk %}" class="btn btn-sm btn-danger">Delete</a>
                                 </div>
                             {% endif %}
