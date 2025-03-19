@@ -35,6 +35,12 @@ class Comment(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)
 
+    def has_upvoted(self):
+        return self.poll.upvoted_by.filter(id=self.user.id).exists()
+
+    def has_downvoted(self):
+        return self.poll.downvoted_by.filter(id=self.user.id).exists()
+
     def __str__(self):
         return f"{self.user}: {self.body}"
 
