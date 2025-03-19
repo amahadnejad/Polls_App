@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages  # Import messages for notifications
-from django.http import HttpResponseForbidden
+from django.contrib import messages
 
 from .models import Poll, Comment
 from .forms import PollForm
@@ -9,7 +8,6 @@ from .forms import PollForm
 
 def poll_list_view(request):
     polls = Poll.objects.all().order_by('-datetime_created')
-
     return render(request, 'polls/polls_list.html', context={'polls': polls})
 
 
