@@ -3,18 +3,24 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages  # Import messages for notifications
 from django.http import HttpResponseForbidden
 
-from .models import Poll
+from .models import Poll, Comment
 from .forms import PollForm
 
 
 def poll_list_view(request):
     polls = Poll.objects.all().order_by('-datetime_created')
+
     return render(request, 'polls/polls_list.html', context={'polls': polls})
 
 
 def poll_detail_view(request, pk):
     poll = get_object_or_404(Poll, pk=pk)
-    return render(request, 'polls/poll_detail.html', context={'poll': poll})
+    comments = poll.comments.all()
+
+    return render(request, 'polls/poll_detail.html', context={
+        'poll': poll,
+        'comments': comments,
+    })
 
 
 @login_required

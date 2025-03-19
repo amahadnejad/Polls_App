@@ -7,8 +7,14 @@
         .card-img-top {
             width: 100%;
             height: 300px; /* Fixed height for consistency */
-            object-fit: contain; /* Ensures the full image is visible without cropping */
-            background-color: #f8f9fa; /* Optional: Adds a background color for images with transparency */
+            object-fit: contain;
+            background-color: #f8f9fa;
+        }
+
+        /* Indent comment text */
+        .comment-text {
+            margin-left: 20px; /* Adds indentation */
+            white-space: pre-line; /* Ensures line breaks are respected */
         }
     </style>
 
@@ -16,7 +22,6 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm border-0 rounded">
-                    <!-- Responsive Image -->
                     {% if poll.cover %}
                         <img src="{{ poll.cover.url }}" class="card-img-top img-fluid" alt="Poll Image">
                     {% else %}
@@ -32,43 +37,53 @@
                         </p>
 
                         <div class="d-flex justify-content-between align-items-center">
-                            <!-- Show Edit & Delete Buttons Only for the Poll Creator -->
                             {% if request.user == poll.user %}
                                 <div>
-                                    <a href="{% url 'poll_update' poll.pk %}"
-                                       class="btn btn-sm btn-warning me-2">Edit</a>
-                                    <a href="{% url 'poll_delete' poll.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="{% url 'poll_update' poll.pk %}" class="btn btn-warning btn-sm me-2">✏️ Edit</a>
+                                    <a href="{% url 'poll_delete' poll.pk %}" class="btn btn-danger btn-sm">🗑️ Delete</a>
                                 </div>
                             {% endif %}
 
-                            <!-- Upvote and Downvote Section -->
                             <div>
-                                <span class="badge bg-success">👍 Up Votes: {{ poll.up_vote }}</span>
-                                <span class="badge bg-danger mx-3">👎 Down Votes: {{ poll.down_vote }}</span>
+                                <span class="badge bg-success">👍 Upvotes: {{ poll.up_vote }}</span>
+                                <span class="badge bg-danger mx-2">👎 Downvotes: {{ poll.down_vote }}</span>
                             </div>
                         </div>
 
                         <hr>
                         <p>{{ poll.description }}</p>
 
-                        <!-- Voting Section -->
-                        <div class="mt-4 d-flex justify-content-between flex-column flex-sm-row">
+                        <div class="mt-4 d-flex justify-content-center">
                             <div class="btn-group">
-                                <!-- Upvote Form -->
                                 <form action="{% url 'poll_vote' poll.id %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-success">Upvote</button>
+                                    <button type="submit" class="btn btn-success">👍 Upvote</button>
                                 </form>
 
-                                <!-- Downvote Form -->
                                 <form action="{% url 'poll_down_vote' poll.id %}" method="post" class="ms-2">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Downvote</button>
+                                    <button type="submit" class="btn btn-danger">👎 Downvote</button>
                                 </form>
                             </div>
                         </div>
-
                     </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="mt-4">
+                    <h5>Comments ({{ comments|length }})</h5>
+                    {% for comment in comments %}
+                        <div class="card mb-2 shadow-sm">
+                            <div class="card-body">
+                                <small class="text-muted">
+                                    <strong>{{ comment.user|capfirst }}</strong> | {{ comment.datetime_created|date:"F d, Y" }}
+                                </small>
+                                <p class="comment-text mt-2">{{ comment.body }}</p>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-muted">No comments yet.</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
