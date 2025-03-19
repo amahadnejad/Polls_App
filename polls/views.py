@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import Poll, Comment
-from .forms import PollForm
+from .forms import PollForm, CommentForm
 
 
 def poll_list_view(request):
@@ -15,9 +15,21 @@ def poll_detail_view(request, pk):
     poll = get_object_or_404(Poll, pk=pk)
     comments = poll.comments.all()
 
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.poll = poll
+            new_comment.user = request.user
+            new_comment.save()
+            comment_form = CommentForm()
+    else:
+        comment_form = CommentForm()
+
     return render(request, 'polls/poll_detail.html', context={
         'poll': poll,
         'comments': comments,
+        'comment_form': comment_form,
     })
 
 
