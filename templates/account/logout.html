@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block page_title %}Logout{% endblock page_title %}
+
+{% block content %}
+    <div class="container col-md-6 col-lg-4 mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header d-flex justify-content-center align-items-center" style="background-color: #4287f5; color: white; border-radius: 10px 10px 0 0;">
+                <h2 class="fw-bold mb-0">Logout</h2>
+            </div>
+            <div class="card-body text-center">
+                <i class="bi bi-power text-danger" style="font-size: 50px;"></i>
+                <h4 class="mt-3 text-muted">Are you sure you want to logout?</h4>
+                <p class="text-muted">You will be signed out of your account.</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger w-100 mt-4 fw-bold">Logout</button>
+                </form>
+                <a href="{% url 'account_login' %}" class="btn btn-outline-dark w-100 mt-3">Cancel</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
