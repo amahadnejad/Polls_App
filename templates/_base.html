@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,10 +13,11 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous">
 
+    <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.png' %}">
+
     <title>{% block page_title %}{% endblock page_title %}</title>
 
     <style>
-        /* Make sure the footer stays at the bottom */
         html, body {
             height: 100%;
             margin: 0;
