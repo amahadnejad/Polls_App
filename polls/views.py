@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.generic import ListView
 
 from .models import Poll, Comment
 from .forms import PollForm, CommentForm
 
 
-def poll_list_view(request):
-    polls = Poll.objects.all().order_by('-datetime_created')
-    return render(request, 'polls/polls_list.html', context={'polls': polls})
+class PollListView(ListView):
+    model = Poll
+    template_name = 'polls/polls_list.html'
+    context_object_name = 'polls'
+    ordering = ['-datetime_created']
+    paginate_by = 8
 
 
 def poll_detail_view(request, pk):
