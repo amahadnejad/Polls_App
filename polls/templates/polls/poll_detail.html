@@ -39,7 +39,7 @@
                     <div class="card-body">
                         <h3 class="card-title">{{ poll.question }}</h3>
                         <p class="text-muted">
-                            <strong>Asked by:</strong> {{ poll.user }} |
+                            <strong>Asked by:</strong> {{ poll.user|capfirst }} |
                             <small><strong>Created on:</strong> {{ poll.datetime_created|date:"F d, Y" }}</small>
                         </p>
 
@@ -96,11 +96,11 @@
                                         </small>
                                         <p>
                                             {% if comment.has_upvoted %}
-                                                💚 You have upvoted this poll! 👍
+                                                💚 {{ comment.user|capfirst }} Has upvoted this poll! 👍
                                             {% elif comment.has_downvoted %}
-                                                💔 You have downvoted this poll. 👎
+                                                💔 {{ comment.user|capfirst }} Has downvoted this poll. 👎
                                             {% else %}
-                                                🤷‍♂️ You have not voted on this poll yet.
+                                                🤷‍♂️ {{ comment.user|capfirst }} Has not voted on this poll yet.
                                             {% endif %}
                                         </p>
                                         <p class="comment-text mt-2">{{ comment.body }}</p>
