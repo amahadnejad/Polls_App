@@ -3,18 +3,38 @@
 {% block page_title %}Delete Poll{% endblock page_title %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-lg p-4 rounded-4 w-100" style="max-width: 500px;">
-        <div class="text-center">
-            <h2 class="fw-bold text-danger">Delete Poll</h2>
-            <p class="text-muted">Are you sure you want to delete this poll?</p>
-            <h5 class="fw-bold">{{ poll.question }}</h5>
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+
+        <!-- Image Column (Left) -->
+        <div class="col-md-6 text-center">
+            {% if poll.cover %}
+                <img src="{{ poll.cover.url }}" class="img-fluid rounded shadow" alt="Poll Image" loading="lazy">
+            {% else %}
+                <img src="https://placehold.co/400x250" class="img-fluid rounded shadow" alt="Placeholder Image">
+            {% endif %}
+            <hr class="my-3">
+            <h6 class="text-muted">
+                👍 Upvotes: <strong>{{ poll.up_vote }}</strong> | 👎 Downvotes: <strong>{{ poll.down_vote }}</strong>
+            </h6>
         </div>
-        <form method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger w-100 fw-bold mt-3">Delete</button>
-            <a href="{% url 'poll_detail' poll.pk %}" class="btn btn-outline-secondary w-100 mt-2">Cancel</a>
-        </form>
+
+        <!-- Delete Confirmation (Right) -->
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4 rounded-4">
+                <div class="text-center mb-3">
+                    <h2 class="fw-bold text-danger">Delete Poll</h2>
+                    <p class="text-muted">Are you sure you want to delete this poll?</p>
+                    <h5 class="fw-bold">{{ poll.question }}</h5>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger w-100 fw-bold mt-3">Delete</button>
+                    <a href="{% url 'poll_detail' poll.pk %}" class="btn btn-outline-secondary w-100 mt-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock content %}
